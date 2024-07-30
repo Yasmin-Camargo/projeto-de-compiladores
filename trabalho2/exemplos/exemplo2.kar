@@ -1,0 +1,72 @@
+void main() {
+    newVar float a;
+    newVar float b;
+    newVar float result;
+    newVar boolean flag;
+
+    a = 10.5;
+    b = 20.3;
+
+    b = add(a, b);
+    printOut b;
+
+    b = sub(a, b);
+    printOut b;
+
+    b = div(a, b);
+    printOut b;
+
+    b = mult(a, b);
+    printOut b;
+
+
+    flag = (a < b); 
+    if (flag) then {
+        printOut a;
+    };
+
+    flag = (a > b);
+    if (flag) then {
+        printOut b;
+    };
+
+    flag = (a == b);
+    if (flag) then {
+        printOut 0;
+    };
+
+    flag = (true & false);
+    if (flag) then {
+        printOut 1;
+    };
+
+    flag = (true | false); 
+    if (flag) then {
+        printOut 1;
+    };
+
+    a = 1.0;
+    while (flag) {
+	printOut a;
+	a = a + 1.0;
+        if (a > 10.0) then {
+            flag = false;
+        };
+    };
+}
+
+fun float add(float x, float y) {
+    return (x + y);
+}
+
+fun float sub(float x, float y) {
+    return (x - y);
+}
+
+fun float div(float x, float y) {
+    return (x / y);
+}
+
+fun float mult(float x, float y) {
+    return (x * y);
+}

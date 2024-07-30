@@ -1,0 +1,109 @@
+PARSER_BEGIN(Karloff)
+import java.io.*;
+public class Karloff {
+
+  public static void main(String args[]) throws ParseException,IOException {
+    
+ Karloff analisador = new Karloff(new FileInputStream(args[0]));
+ analisador.Karloff();
+  }
+
+}
+
+PARSER_END(Karloff)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+TOKEN :
+{
+  <MAIN: "main">
+| <VOID: "void">
+| <ACHAVES: "{">
+| <FCHAVES: "}">
+| <APARENTESIS: "(">
+| <FPARENTESIS: ")">
+| <NOVAVARIAVEL: "newVar">
+| <PONTOEVIRGULA: ";">
+| <TIPOFLOAT: "float">
+| <TIPOBOOLEAN: "boolean">
+| <ATRIBUICAO: "=">
+| <PRINT: "printOut">
+| <IF: "if">
+| <THEN: "then">
+| <WHILE: "while">
+| <RETURN: "return">
+| <TRUE: "true">
+| <FALSE: "false">
+| <SOMA: "+">
+| <SUBTRACAO: "-">
+| <MULTIPLICACAO: "*">
+| <DIVISAO: "/">
+| <ELOGICO: "&">
+| <OULOGICO: "|">
+| <MAIOR: ">">
+| <MENOR: "<">
+| <IGUAL: "==">
+| <VIRGULA: ",">
+}
+
+TOKEN :
+{
+  <NUM : (["0"-"9"])+ ("." (["0"-"9"])+)? ("E" (["+","-"])? (["0"-"9"])+)?>
+ |< ID: ["a"-"z","A"-"Z"] (["a"-"z","A"-"Z","0"-"9"])* ("_" (["a"-"z","A"-"Z","0"-"9"])+)*>
+}
+
+
+
+void Karloff () :
+{Token t;}
+{
+
+(
+  <MAIN> { System.out.println("Palavra reservada: main");}
+| <VOID> { System.out.println("Palavra reservada: void");}
+| <ACHAVES> { System.out.println("Abre chaves: {");}
+| <FCHAVES> { System.out.println("Fecha chaves: }");}
+| <APARENTESIS> { System.out.println("Abre parentesis: (");}
+| <FPARENTESIS> { System.out.println("Fecha parentesis: )");}
+| <NOVAVARIAVEL> { System.out.println("Palavra reservada: newVar");}
+| <TIPOFLOAT> { System.out.println("Palavra reservada: float");}
+| <TIPOBOOLEAN> { System.out.println("Palavra reservada: boolean");}
+| <PONTOEVIRGULA> { System.out.println("Ponto e virgula: ;");}
+| <ATRIBUICAO> { System.out.println("Atribuiçao: =");}
+| <PRINT> { System.out.println("Palavra reservada: printOut");}
+| <IF> { System.out.println("Palavra reservada: if");}
+| <THEN> { System.out.println("Palavra reservada: then");}
+| <WHILE> { System.out.println("Palavra reservada: while");}
+| <RETURN> { System.out.println("Palavra reservada: return");}
+
+| <TRUE> { System.out.println("True: true");}
+| <FALSE> { System.out.println("False: false");}
+| <SOMA> { System.out.println("Soma: +");}
+| <SUBTRACAO> { System.out.println("Soma: -");}
+| <MULTIPLICACAO> { System.out.println("Soma: *");}
+| <DIVISAO> { System.out.println("Soma: /");}
+| <ELOGICO> { System.out.println("Soma: &");}
+| <OULOGICO> { System.out.println("Soma: |");}
+| <MAIOR> { System.out.println("Soma: >");}
+| <MENOR> { System.out.println("Soma: <");}
+| <IGUAL> { System.out.println("Soma: ==");}
+| <VIRGULA> { System.out.println("Virgula: ,");}
+
+| t=<NUM> { System.out.println("Número: "+ t.image);}
+| t=<ID> { System.out.println("Identificador: "+ t.image);}
+)*
+<EOF> 
+
+
+}
+
+
+
+
+
