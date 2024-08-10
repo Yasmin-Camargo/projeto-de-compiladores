@@ -1,0 +1,276 @@
+PARSER_BEGIN(Karloff)
+import java.io.*;
+public class Karloff {
+
+  public static void main(String args[]) throws ParseException,IOException { 
+    Karloff analisador = new Karloff(new FileInputStream(args[0]));
+    analisador.Karloff();
+  }
+
+}
+
+PARSER_END(Karloff)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+}
+
+TOKEN :
+{
+  <MAIN: "main">
+| <VOID: "void">
+| <ACHAVES: "{">
+| <FCHAVES: "}">
+| <APARENTESES: "(">
+| <FPARENTESES: ")">
+| <NOVAVARIAVEL: "newVar">
+| <PONTOEVIRGULA: ";">
+| <TIPOFLOAT: "float">
+| <TIPOBOOLEAN: "boolean">
+| <ATRIBUICAO: "=">
+| <PRINT: "printOut">
+| <IF: "if">
+| <THEN: "then">
+| <WHILE: "while">
+| <RETURN: "return">
+| <TRUE: "true">
+| <FALSE: "false">
+| <SOMA: "+">
+| <SUBTRACAO: "-">
+| <MULTIPLICACAO: "*">
+| <DIVISAO: "/">
+| <ELOGICO: "&">
+| <OULOGICO: "|">
+| <MAIOR: ">">
+| <MENOR: "<">
+| <IGUAL: "==">
+| <VIRGULA: ",">
+| <FUN: "fun">
+| <READINPUT: "readInput">
+}
+
+TOKEN :
+{
+  <NUM : (["0"-"9"])+ ("." (["0"-"9"])+)? ("E" (["+","-"])? (["0"-"9"])+)?>
+ |< ID: ["a"-"z","A"-"Z"] (["a"-"z","A"-"Z","0"-"9"])* ("_" (["a"-"z","A"-"Z","0"-"9"])+)*>
+}
+
+
+void Karloff2 () :
+{Token t;}
+{
+
+(
+  <MAIN> { System.out.println("Palavra reservada: main");}
+| <VOID> { System.out.println("Palavra reservada: void");}
+| <ACHAVES> { System.out.println("Abre chaves: {");}
+| <FCHAVES> { System.out.println("Fecha chaves: }");}
+| <APARENTESES> { System.out.println("Abre parenteses: (");}
+| <FPARENTESES> { System.out.println("Fecha parenteses: )");}
+| <NOVAVARIAVEL> { System.out.println("Palavra reservada: newVar");}
+| <TIPOFLOAT> { System.out.println("Palavra reservada: float");}
+| <TIPOBOOLEAN> { System.out.println("Palavra reservada: boolean");}
+| <PONTOEVIRGULA> { System.out.println("Ponto e virgula: ;");}
+| <ATRIBUICAO> { System.out.println("Atribuiçao: =");}
+| <PRINT> { System.out.println("Palavra reservada: printOut");}
+| <IF> { System.out.println("Palavra reservada: if");}
+| <THEN> { System.out.println("Palavra reservada: then");}
+| <WHILE> { System.out.println("Palavra reservada: while");}
+| <RETURN> { System.out.println("Palavra reservada: return");}
+| <FUN> { System.out.println("Palavra reservada: fun");}
+| <READINPUT> { System.out.println("Palavra reservada: readInput");}
+
+| <TRUE> { System.out.println("True: true");}
+| <FALSE> { System.out.println("False: false");}
+| <SOMA> { System.out.println("Soma: +");}
+| <SUBTRACAO> { System.out.println("Subtração: -");}
+| <MULTIPLICACAO> { System.out.println("Multiplicação: *");}
+| <DIVISAO> { System.out.println("Divisão: /");}
+| <ELOGICO> { System.out.println("E Lógico: &");}
+| <OULOGICO> { System.out.println("OU Lógico: |");}
+| <MAIOR> { System.out.println("Maior: >");}
+| <MENOR> { System.out.println("Menor: <");}
+| <IGUAL> { System.out.println("Igual: ==");}
+| <VIRGULA> { System.out.println("Virgula: ,");}
+
+| t=<NUM> { System.out.println("Número: "+ t.image);}
+| t=<ID> { System.out.println("Identificador: "+ t.image);}
+)*
+<EOF> 
+}
+
+
+// KARLOFF -> MAIN FUNC?
+void Karloff () :
+{}
+{
+ Main() (Func())?
+}
+
+
+// MAIN -> "void" "main" "(" ")" "{" VARDECL SEQCOMANDOS "}"
+void Main () :
+{}
+{
+ <VOID> <MAIN> <APARENTESES> <FPARENTESES> <ACHAVES> Vardecl() Seqcomandos() <FCHAVES>
+}
+
+
+// VARDECL -> "newVar" TIPO TOKEN_id ";" *
+void Vardecl  () :
+{}
+{
+ (<NOVAVARIAVEL> Tipo() Tokenid() <PONTOEVIRGULA>)*
+}
+
+
+// TIPO -> "float" | "boolean" | "void"
+void Tipo  () :
+{}
+{
+ <TIPOFLOAT> | <TIPOBOOLEAN> | <VOID>
+}
+
+
+// SEQCOMANDOS -> COMANDO *
+void Seqcomandos  () :
+{}
+{
+ (Comando())*
+}
+
+
+// COMANDO -> TOKEN_id COMANDO’
+//  | "if" EXP "then" "{" SEQCOMANDOS "}" ";"
+//  | "while" EXP "{" SEQCOMANDOS "}" ";"
+//  | "return" EXP ";" 
+//  | "printOut" EXP ";"
+void Comando  () :
+{}
+{
+ (Tokenid() ComandoL()) | 
+ (<IF> Exp() <THEN> <ACHAVES> Seqcomandos() <FCHAVES> <PONTOEVIRGULA>) | 
+ (<WHILE> Exp() <ACHAVES> Seqcomandos() <FCHAVES> <PONTOEVIRGULA>) |
+ (<RETURN> Exp() <PONTOEVIRGULA>) |
+ (<PRINT> Exp() <PONTOEVIRGULA>) 
+}
+
+
+// COMANDO’ -> "=" COMANDO’’ | "(" LISTAEXP? ")" ";" 
+void ComandoL () :
+{}
+{
+ (<ATRIBUICAO> ComandoLL()) | (<APARENTESES> (Listaexp())? <FPARENTESES> <PONTOEVIRGULA>) 
+}
+
+
+// COMANDO’’ -> EXP ";" | readInput "(" ")"
+void ComandoLL () :
+{}
+{
+ (Exp() <PONTOEVIRGULA>) | (<READINPUT> <APARENTESES>  <FPARENTESES>)
+}
+
+
+// EXP -> "(" EXP OP EXP ")" | FATOR
+void Exp () :
+{}
+{
+ (<APARENTESES> Exp() Op() Exp() <FPARENTESES>) | (Fator())
+}
+
+
+// FATOR -> TOKEN_id FATOR’ | TOKEN_numliteral | "true" | "false"
+void Fator  () :
+{}
+{
+ (Tokenid() FatorL())| Tokennumliteral() | <TRUE> | <FALSE> 
+}
+
+
+// FATOR’ -> "(" LISTAEXP? ")" | epsilon
+void FatorL  () :
+{}
+{
+ (<APARENTESES> (Listaexp())? <FPARENTESES>)?
+}
+
+
+// OP -> "+" | "-" | "*" | "/" | "&" | "|" | "<" | ">" | "=="
+void Op  () :
+{}
+{
+ <SOMA> | <SUBTRACAO> | <MULTIPLICACAO> | <DIVISAO> | <ELOGICO> | <OULOGICO> | <MAIOR> | <MENOR> | <IGUAL>
+}
+
+
+// LISTAEXP -> EXP LISTAEXP’
+void Listaexp  () :
+{}
+{
+ Exp() ListaexpL()
+}
+
+
+//LISTAEXP’ -> "," EXP LISTAEXP’ | epsilon
+void ListaexpL  () :
+{}
+{
+ (<VIRGULA> Exp() ListaexpL())?
+}
+
+
+// FUNC -> "fun" TIPO TOKEN_id "(" LISTAARG? ")" "{" VARDECL SEQCOMANDOS "}"  FUNC’ 
+void Func  () :
+{}
+{
+ <FUN> Tipo() Tokenid() <APARENTESES> (Listaarg())? <FPARENTESES> <ACHAVES> Vardecl() Seqcomandos() <FCHAVES> FuncL()
+}
+
+
+//FUNC’ -> "fun" TIPO TOKEN_id "(" LISTAARG? ")" "{" VARDECL SEQCOMANDOS "}"  FUNC’|  epsilon
+void FuncL  () :
+{}
+{
+ (<FUN> Tipo() Tokenid() <APARENTESES> (Listaarg())? <FPARENTESES> <ACHAVES> Vardecl() Seqcomandos() <FCHAVES> FuncL())?
+}
+
+
+// LISTAARG -> TIPO TOKEN_id LISTAARG’
+void Listaarg  () :
+{}
+{
+ Tipo() Tokenid() ListaargL()
+}
+
+
+// LISTAARG’ -> "," TIPO TOKEN_id LISTAARG’ |  epsilon
+void ListaargL  () :
+{}
+{
+ (<VIRGULA> Tipo() Tokenid() ListaargL())?
+}
+
+
+// TOKEN_id -> letra letraoudigito* finalsublinhado*
+void Tokenid  () :
+{}
+{
+ <ID>
+}
+
+
+// TOKEN_numliteral -> digitos facao_opcional expoente_opcional
+void Tokennumliteral  () :
+{}
+{
+ <NUM>
+}
+
+
+
+
