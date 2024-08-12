@@ -26,8 +26,8 @@ TOKEN :
 | <VOID: "void">
 | <ACHAVES: "{">
 | <FCHAVES: "}">
-| <APARENTESIS: "(">
-| <FPARENTESIS: ")">
+| <APARENTESES: "(">
+| <FPARENTESES: ")">
 | <NOVAVARIAVEL: "newVar">
 | <PONTOEVIRGULA: ";">
 | <TIPOFLOAT: "float">
@@ -50,6 +50,8 @@ TOKEN :
 | <MENOR: "<">
 | <IGUAL: "==">
 | <VIRGULA: ",">
+| <FUN: "fun">
+| <READINPUT: "readInput">
 }
 
 TOKEN :
@@ -60,7 +62,7 @@ TOKEN :
 
 
 
-void Karloff () :
+void Karloff () : 
 {Token t;}
 {
 
@@ -69,8 +71,8 @@ void Karloff () :
 | <VOID> { System.out.println("Palavra reservada: void");}
 | <ACHAVES> { System.out.println("Abre chaves: {");}
 | <FCHAVES> { System.out.println("Fecha chaves: }");}
-| <APARENTESIS> { System.out.println("Abre parentesis: (");}
-| <FPARENTESIS> { System.out.println("Fecha parentesis: )");}
+| <APARENTESES> { System.out.println("Abre parenteses: (");}
+| <FPARENTESES> { System.out.println("Fecha parenteses: )");}
 | <NOVAVARIAVEL> { System.out.println("Palavra reservada: newVar");}
 | <TIPOFLOAT> { System.out.println("Palavra reservada: float");}
 | <TIPOBOOLEAN> { System.out.println("Palavra reservada: boolean");}
@@ -81,25 +83,26 @@ void Karloff () :
 | <THEN> { System.out.println("Palavra reservada: then");}
 | <WHILE> { System.out.println("Palavra reservada: while");}
 | <RETURN> { System.out.println("Palavra reservada: return");}
+| <FUN> { System.out.println("Palavra reservada: fun");}
+| <READINPUT> { System.out.println("Palavra reservada: readInput");}
 
 | <TRUE> { System.out.println("True: true");}
 | <FALSE> { System.out.println("False: false");}
 | <SOMA> { System.out.println("Soma: +");}
-| <SUBTRACAO> { System.out.println("Soma: -");}
-| <MULTIPLICACAO> { System.out.println("Soma: *");}
-| <DIVISAO> { System.out.println("Soma: /");}
-| <ELOGICO> { System.out.println("Soma: &");}
-| <OULOGICO> { System.out.println("Soma: |");}
-| <MAIOR> { System.out.println("Soma: >");}
-| <MENOR> { System.out.println("Soma: <");}
-| <IGUAL> { System.out.println("Soma: ==");}
+| <SUBTRACAO> { System.out.println("Subtração: -");}
+| <MULTIPLICACAO> { System.out.println("Multiplicação: *");}
+| <DIVISAO> { System.out.println("Divisão: /");}
+| <ELOGICO> { System.out.println("E Lógico: &");}
+| <OULOGICO> { System.out.println("OU Lógico: |");}
+| <MAIOR> { System.out.println("Maior: >");}
+| <MENOR> { System.out.println("Menor: <");}
+| <IGUAL> { System.out.println("Igual: ==");}
 | <VIRGULA> { System.out.println("Virgula: ,");}
 
 | t=<NUM> { System.out.println("Número: "+ t.image);}
 | t=<ID> { System.out.println("Identificador: "+ t.image);}
 )*
 <EOF> 
-
 
 }
 

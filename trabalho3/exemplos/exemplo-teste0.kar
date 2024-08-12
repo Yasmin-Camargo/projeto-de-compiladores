@@ -2,4 +2,5 @@ void main () {
     newVar float teste;
     teste_var = readInput()
     printOut teste;
+    teste = readInput()
 }

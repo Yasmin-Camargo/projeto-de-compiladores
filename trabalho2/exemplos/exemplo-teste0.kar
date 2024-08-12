@@ -1,5 +1,6 @@
 void main () {
     newVar float teste;
-    teste_var = 9.0;
+    teste_var = readInput()
     printOut teste;
+    teste = readInput()
 }
