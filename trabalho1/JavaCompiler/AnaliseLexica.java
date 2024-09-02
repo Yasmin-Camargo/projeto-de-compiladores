@@ -36,7 +36,7 @@ class AnaliseLexica {
 			} while (currchar == '\n' || currchar == ' ' || currchar =='\t' || currchar == '\r');
 		
 			
-			if(currchar1 != eof && currchar1 !=10)
+			if(currchar1 != eof && currchar1 != 10)
 			{
 				currstring = "";
 				if (currchar >= '0' && currchar <= '9'){
@@ -52,7 +52,7 @@ class AnaliseLexica {
 		
 					return (new Token (currstring, TokenType.NUM));
 				}
-				else
+				else {
 					currstring += currchar;
 					switch (currchar){
 						case '(':
@@ -70,6 +70,7 @@ class AnaliseLexica {
 						
 						default: throw (new Exception("Caractere inválido: " + ((int) currchar)));
 					}
+				}
 			}
 
 			arquivo.close();

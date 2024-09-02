@@ -29,7 +29,7 @@ class Compilador{
 
 			System.out.println("\n --- Interpretador --- ");
 			Interpretador backend2 = new Interpretador();
-			int codigo2 = backend2.geraCodigo(arv);
+			int codigo2 = backend2.geraResult(arv);
 			System.out.println("Resultado: "+codigo2);
 
 		}catch(Exception e)

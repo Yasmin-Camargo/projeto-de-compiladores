@@ -28,7 +28,7 @@ Remover arquivos .class:
 3. Execute a máquina de pilha:
 
     ```bash
-    java MaquinaPilha .\maquina_pilha.txt
+    java MaquinaPilha maquina_pilha.txt
     ```
 
 
@@ -59,5 +59,5 @@ Remover arquivos .class e .java:
 3. Execute o parser:
 
     ```bash
-    java Karloff ../exemplos/exemplo.kar
+    java Karloff ../exemplos/exemplo1.kar
     ```

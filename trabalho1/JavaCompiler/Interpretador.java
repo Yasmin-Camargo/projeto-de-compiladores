@@ -1,26 +1,26 @@
 class Interpretador{
-	int geraCodigo (ArvoreSintatica arv)
+	int geraResult (ArvoreSintatica arv)
 	{
-		return (geraCodigo2(arv));
+		return (geraResult2(arv));
 	}
-	int geraCodigo2 (ArvoreSintatica arv)
+	int geraResult2 (ArvoreSintatica arv)
 	{
 
 	if (arv instanceof Mult)
-		return (geraCodigo2(((Mult) arv).arg1) * 
-			geraCodigo2(((Mult) arv).arg2));
+		return (geraResult2(((Mult) arv).arg1) * 
+			geraResult2(((Mult) arv).arg2));
 
 	if (arv instanceof Soma)
-		return (geraCodigo2(((Soma) arv).arg1) + 
-			geraCodigo2(((Soma) arv).arg2));
+		return (geraResult2(((Soma) arv).arg1) + 
+			geraResult2(((Soma) arv).arg2));
 
 	if (arv instanceof Sub)
-		return (geraCodigo2(((Sub) arv).arg1) - 
-		geraCodigo2(((Sub) arv).arg2));
+		return (geraResult2(((Sub) arv).arg1) - 
+			geraResult2(((Sub) arv).arg2));
 
 	if (arv instanceof Div)
-		return (geraCodigo2(((Div) arv).arg1) / 
-		geraCodigo2(((Div) arv).arg2));
+		return (geraResult2(((Div) arv).arg1) / 
+			geraResult2(((Div) arv).arg2));
 
 	if (arv instanceof Num)
 		return (((Num) arv).num);

@@ -60,50 +60,6 @@ TOKEN :
 }
 
 
-void Karloff2 () :
-{Token t;}
-{
-
-(
-  <MAIN> { System.out.println("Palavra reservada: main");}
-| <VOID> { System.out.println("Palavra reservada: void");}
-| <ACHAVES> { System.out.println("Abre chaves: {");}
-| <FCHAVES> { System.out.println("Fecha chaves: }");}
-| <APARENTESES> { System.out.println("Abre parenteses: (");}
-| <FPARENTESES> { System.out.println("Fecha parenteses: )");}
-| <NOVAVARIAVEL> { System.out.println("Palavra reservada: newVar");}
-| <TIPOFLOAT> { System.out.println("Palavra reservada: float");}
-| <TIPOBOOLEAN> { System.out.println("Palavra reservada: boolean");}
-| <PONTOEVIRGULA> { System.out.println("Ponto e virgula: ;");}
-| <ATRIBUICAO> { System.out.println("Atribuiçao: =");}
-| <PRINT> { System.out.println("Palavra reservada: printOut");}
-| <IF> { System.out.println("Palavra reservada: if");}
-| <THEN> { System.out.println("Palavra reservada: then");}
-| <WHILE> { System.out.println("Palavra reservada: while");}
-| <RETURN> { System.out.println("Palavra reservada: return");}
-| <FUN> { System.out.println("Palavra reservada: fun");}
-| <READINPUT> { System.out.println("Palavra reservada: readInput");}
-
-| <TRUE> { System.out.println("True: true");}
-| <FALSE> { System.out.println("False: false");}
-| <SOMA> { System.out.println("Soma: +");}
-| <SUBTRACAO> { System.out.println("Subtração: -");}
-| <MULTIPLICACAO> { System.out.println("Multiplicação: *");}
-| <DIVISAO> { System.out.println("Divisão: /");}
-| <ELOGICO> { System.out.println("E Lógico: &");}
-| <OULOGICO> { System.out.println("OU Lógico: |");}
-| <MAIOR> { System.out.println("Maior: >");}
-| <MENOR> { System.out.println("Menor: <");}
-| <IGUAL> { System.out.println("Igual: ==");}
-| <VIRGULA> { System.out.println("Virgula: ,");}
-
-| t=<NUM> { System.out.println("Número: "+ t.image);}
-| t=<ID> { System.out.println("Identificador: "+ t.image);}
-)*
-<EOF> 
-}
-
-
 // KARLOFF -> MAIN FUNC?
 void Karloff () :
 {}
@@ -188,7 +144,7 @@ void Exp () :
 void Fator  () :
 {}
 {
- (Tokenid() FatorL())| Tokennumliteral() | <TRUE> | <FALSE> 
+ (Tokenid() FatorL()) | Tokennumliteral() | <TRUE> | <FALSE> 
 }
 
 
