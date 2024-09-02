@@ -22,13 +22,21 @@ public class MaquinaPilha {
                 if (linha.equals("PRINT")) {
                     System.out.println(pilha.pop());
                 } else if (linha.equals("SUM")) {
-                    pilha.push(pilha.pop() + pilha.pop());
+                    int num1 = pilha.pop();
+                    int num2 = pilha.pop();
+                    pilha.push(num1 + num2);
                 } else if (linha.equals("SUB")) {
-                    pilha.push(pilha.pop() - pilha.pop());
+                    int num1 = pilha.pop();
+                    int num2 = pilha.pop();
+                    pilha.push(num2 - num1);
                 } else if (linha.equals("MULT")) {
-                    pilha.push(pilha.pop() * pilha.pop());
+                    int num1 = pilha.pop();
+                    int num2 = pilha.pop();
+                    pilha.push(num1 * num2);
                 } else if (linha.equals("DIV")) {
-                    pilha.push(pilha.pop() / pilha.pop());
+                    int num1 = pilha.pop();
+                    int num2 = pilha.pop();
+                    pilha.push(num2 / num1);
                 } else if (linha.startsWith("PUSH")) {
                     pilha.push(Integer.parseInt(linha.split(" ")[1]));
                 } else {
