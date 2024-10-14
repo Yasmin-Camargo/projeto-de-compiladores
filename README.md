@@ -59,5 +59,5 @@ Remover arquivos .class e .java:
 3. Execute o parser:
 
     ```bash
-    java Karloff ../exemplos/exemplo1.kar
+    java Karloff exemplos/exemplo_1.kar
     ```
